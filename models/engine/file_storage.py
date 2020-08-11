@@ -13,7 +13,7 @@ class FileStorage:
         d = {}
         if cls:
             for key, val in FileStorage.__objects.items():
-                if cls.__name__ == key.split(".")[0]:
+                if val.__class__ == cls:
                     d[key] = val
             return d
         return FileStorage.__objects
