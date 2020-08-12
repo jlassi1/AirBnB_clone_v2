@@ -14,6 +14,6 @@ class City(BaseModel, Base):
     )
     state_id = Column(
        String(60),
+       ForeignKey("states.id"),
        nullable=False,
-       ForeignKey('states.id')
     )

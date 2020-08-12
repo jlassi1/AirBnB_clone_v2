@@ -1,8 +1,7 @@
 #!/usr/bin/python3
 """This module manage database connection and Queries"""
 import os
-from sqlalchemy import cerate_engine, Metadata
-from sqlalchemy import sessionmaker, scoped_session
+from sqlalchemy import create_engine
 
 
 class DBStorage:
@@ -36,17 +35,17 @@ class DBStorage:
         from models.place import Place
         from models.amenity import Amenity
         from models.review import Review
-        from models.usr import User
+        from models.user import User
         rows = []
         if cls:
-            rows = self.__session.query(cls).all()
+            rows = self.__session.query(cls)
         else:
-            rows.append(self.__session.query(State)).all()
-            rows.append(self.__session.query(City)).all()
-            rows.append(self.__session.query(Place)).all()
-            rows.append(self.__session.query(Amenity)).all()
-            rows.append(self.__session.query(Review)).all()
-            rows.append(self.__session.query(User)).all()
+            rows += self.__session.query(State)
+            rows += self.__session.query(City)
+            # // rows.append(self.__session.query(Place))
+            # // rows.append(self.__session.query(Amenity))
+            # // rows.append(self.__session.query(Review))
+            # // rows.append(self.__session.query(User))
         return {row.__class__.__name__ + '.' + row.id: row for row in rows}
 
     # TODO create new method add a in current session db
@@ -68,9 +67,14 @@ class DBStorage:
     # TODO create reload methon to reload engine instance
     def reload(self):
         """Reloads current session instance"""
+        from sqlalchemy.orm import sessionmaker, scoped_session
         from models.base_model import Base
         from models.state import State
         from models.city import City
+        # // from models.place import Place
+        # // from models.amenity import Amenity
+        # // from models.review import Review
+        # // from models.user import User
         Base.metadata.create_all(self.__engine)
         Session = scoped_session(
             sessionmaker(
