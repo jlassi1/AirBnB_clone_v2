@@ -42,10 +42,10 @@ class DBStorage:
         else:
             rows += self.__session.query(State)
             rows += self.__session.query(City)
-            # // rows.append(self.__session.query(Place))
-            # // rows.append(self.__session.query(Amenity))
-            # // rows.append(self.__session.query(Review))
-            rows.append(self.__session.query(User))
+            rows += self.__session.query(Place)
+            # //rows += self.__session.query(Amenity)
+            # //rows += self.__session.query(Review)
+            rows += self.__session.query(User)
         return {row.__class__.__name__ + '.' + row.id: row for row in rows}
 
     # TODO create new method add a in current session db
@@ -71,10 +71,10 @@ class DBStorage:
         from models.base_model import Base
         from models.state import State
         from models.city import City
-        # // from models.place import Place
-        # // from models.amenity import Amenity
-        # // from models.review import Review
         from models.user import User
+        from models.place import Place
+        from models.amenity import Amenity
+        from models.review import Review
         Base.metadata.create_all(self.__engine)
         Session = scoped_session(
             sessionmaker(
