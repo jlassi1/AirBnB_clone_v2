@@ -2,6 +2,8 @@
 """ Place Module for HBNB project """
 from models.base_model import BaseModel, Base
 from sqlalchemy import Column, String, ForeignKey, Integer, Float
+from models.review import Review
+from sqlalchemy.orm import relationship
 
 
 class Place(BaseModel, Base):
@@ -55,3 +57,18 @@ class Place(BaseModel, Base):
         nullable=True,
     )
     amenity_ids = []
+
+    reviews = relationship(
+        "Review",
+        backref="place",
+        cascade="all, delete"
+    )
+
+    @property
+    def reviews(self):
+        """ the : getter attribute reviews"""
+        list_reviews = []
+        for k, v in models.storage.all(Review).items():
+            if self.id == Review.place_id:
+                list_reviews.append(v)
+        return list_reviews
