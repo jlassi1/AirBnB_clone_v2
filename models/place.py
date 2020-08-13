@@ -113,5 +113,5 @@ class Place(BaseModel, Base):
     @amenities.setter
     def amenities(self, obj=None):
         """Setter attribute"""
-        if isinstance(self, obj, Amenity):
-            self.obj_ids.append(obj.id)
+        if obj not in self.amenity_ids and isinstance(obj, Amenity):
+            self.amenities.append(obj.id)
