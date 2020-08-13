@@ -27,7 +27,7 @@ class User(BaseModel, Base):
     # TODO add a backrefenrece to places
     places = relationship(
         "Place",
-        backref="user",
+        backref="User",
         cascade="all, delete"
     )
     reviews = relationship(
