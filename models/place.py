@@ -4,6 +4,7 @@ from models.base_model import BaseModel, Base
 from sqlalchemy import Column, String, ForeignKey, Integer, Float
 from models.review import Review
 from sqlalchemy.orm import relationship
+from models.amenity import Amenity
 
 
 class Place(BaseModel, Base):
@@ -63,6 +64,28 @@ class Place(BaseModel, Base):
         backref="place",
         cascade="all, delete"
     )
+    amenities = relationship(
+        "Amenity",
+        secondary="place_amenity",
+        viewonly=False
+    )
+
+    place_amenity = Table(
+        "place_amenity",
+        Base.metadata,
+        place_id = Column(
+            String(60),
+            ForeignKey("places.id"),
+            primary_key=True,
+            nullable=False
+        )
+        amenity_id = Column(
+            String(60),
+            ForeignKey("amenities.id"),
+            primary_key=True,
+            nullable=False
+        )
+    )
 
     @property
     def reviews(self):
@@ -72,3 +95,18 @@ class Place(BaseModel, Base):
             if self.id == Review.place_id:
                 list_reviews.append(v)
         return list_reviews
+
+    @property
+    def amenities(self):
+        """ Getter attribute"""
+        list_amenity = []
+        for k, v models.storage.all(Amenity).items():
+            if amenity_id in amenities.amenity_id:
+                list_amenity.append(v)
+        return list_amenity
+
+    @amenities.setter
+    def amenity(self, amenity):
+        """Setter attribute"""
+        if isinstance(self, amenity, Amenity):
+            self.amenity_ids.append(amenity.id)
