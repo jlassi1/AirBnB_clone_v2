@@ -103,11 +103,12 @@ class Place(BaseModel, Base):
     @property
     def amenities(self):
         """ Getter attribute"""
-        list_amenity = []
+        """list_amenity = []
         for k, v in models.storage.all(Amenity).items():
             if amenity_id in self.amenity_ids:
                 list_amenity.append(v)
-        return list_amenity
+        return list_amenity"""
+        return self.amenity_ids
 
     @amenities.setter
     def amenities(self, obj=None):
