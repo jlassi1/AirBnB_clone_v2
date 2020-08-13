@@ -18,11 +18,11 @@ class User(BaseModel, Base):
     )
     first_name = Column(
         String(128),
-        nullable=True
+        nullable=False
     )
     last_name = Column(
         String(128),
-        nullable=True
+        nullable=False
     )
     # TODO add a backrefenrece to places
     places = relationship(
