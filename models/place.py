@@ -22,7 +22,6 @@ place_amenity = Table(
             primary_key=True,
             nullable=False
         ),
-        extend_existing=True
 )
 
 
@@ -87,9 +86,9 @@ class Place(BaseModel, Base):
     amenities = relationship(
         "Amenity",
         secondary="place_amenity",
-        viewonly=False
+        viewonly=False,
+        back_populates="Place"
     )
-
 
     @property
     def reviews(self):
@@ -103,12 +102,11 @@ class Place(BaseModel, Base):
     @property
     def amenities(self):
         """ Getter attribute"""
-        """list_amenity = []
+        list_amenity = []
         for k, v in models.storage.all(Amenity).items():
             if amenity_id in self.amenity_ids:
                 list_amenity.append(v)
-        return list_amenity"""
-        return self.amenity_ids
+        return list_amenity
 
     @amenities.setter
     def amenities(self, obj=None):

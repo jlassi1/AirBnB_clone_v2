@@ -3,7 +3,6 @@
 from models.base_model import BaseModel, Base
 from sqlalchemy import Column, String, Table, ForeignKey
 from sqlalchemy.orm import relationship
-#from models.place import place_amenity
 
 """place_amenity = Table(
         "place_amenity",
@@ -35,5 +34,6 @@ class Amenity(BaseModel, Base):
     )
     place_amenities = relationship(
         "Place",
-        secondary="place_amenity"
+        secondary="place_amenity",
+         back_populates="Amenity"
         )
