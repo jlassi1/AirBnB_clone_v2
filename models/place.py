@@ -78,22 +78,10 @@ class Place(BaseModel, Base):
     )
     amenity_ids = []
 
-    reviews = relationship(
-        "Review",
-        backref="place",
-        cascade="all, delete"
-    )
-
-    amenities = relationship(
-        "Amenity",
-        secondary="place_amenity",
-        viewonly=False,
-        backref="Place"
-    )
-
     if os.getenv("HBNB_TYPE_STORAGE") != 'db':
         from models.review import Review
         from models.amenity import Amenity
+
         @property
         def reviews(self):
             """ the : getter attribute reviews"""
@@ -117,3 +105,16 @@ class Place(BaseModel, Base):
             """Setter attribute"""
             if obj not in self.amenity_ids and isinstance(obj, Amenity):
                 self.amenities.append(obj.id)
+
+    reviews = relationship(
+        "Review",
+        backref="place",
+        cascade="all, delete"
+    )
+
+    amenities = relationship(
+        "Amenity",
+        secondary="place_amenity",
+        viewonly=False,
+        backref="Place"
+    )
