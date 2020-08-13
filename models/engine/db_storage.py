@@ -43,8 +43,8 @@ class DBStorage:
             rows += self.__session.query(State)
             rows += self.__session.query(City)
             rows += self.__session.query(Place)
-            # //rows += self.__session.query(Amenity)
-            # //rows += self.__session.query(Review)
+            rows += self.__session.query(Amenity)
+            rows += self.__session.query(Review)
             rows += self.__session.query(User)
         return {row.__class__.__name__ + '.' + row.id: row for row in rows}
 

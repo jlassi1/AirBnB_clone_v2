@@ -86,7 +86,7 @@ class Place(BaseModel, Base):
 
     amenities = relationship(
         "Amenity",
-        secondary=place_amenity,
+        secondary="place_amenity",
         viewonly=False
     )
 

@@ -3,8 +3,9 @@
 from models.base_model import BaseModel, Base
 from sqlalchemy import Column, String, Table, ForeignKey
 from sqlalchemy.orm import relationship
+#from models.place import place_amenity
 
-place_amenity = Table(
+"""place_amenity = Table(
         "place_amenity",
         Base.metadata,
         Column(
@@ -22,7 +23,7 @@ place_amenity = Table(
             nullable=False
         ),
         extend_existing=True
-)
+)"""
 
 
 class Amenity(BaseModel, Base):
@@ -34,5 +35,5 @@ class Amenity(BaseModel, Base):
     )
     place_amenities = relationship(
         "Place",
-        secondary=place_amenity
+        secondary="place_amenity"
         )
