@@ -243,7 +243,8 @@ class HBNBCommand(cmd.Cmd):
 
     def help_all(self):
         """ Help information for the all command """
-        print("Shows all objects, or all of a class")
+        print("Shows all objects, or all of a class")                if k.split('.')[0] == args:
+
         print("[Usage]: all <className>\n")
 
     def do_count(self, args):
