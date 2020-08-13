@@ -1,7 +1,7 @@
 #!/usr/bin/python3
 """ Place Module for HBNB project """
 from models.base_model import BaseModel, Base
-from sqlalchemy import Column, String, ForeignKey, Integer, Float
+from sqlalchemy import Column, String, ForeignKey, Integer, Float, Table
 from models.review import Review
 from sqlalchemy.orm import relationship
 from models.amenity import Amenity
@@ -73,13 +73,15 @@ class Place(BaseModel, Base):
     place_amenity = Table(
         "place_amenity",
         Base.metadata,
-        place_id = Column(
+        Column(
+            "place_id",
             String(60),
             ForeignKey("places.id"),
             primary_key=True,
             nullable=False
-        )
-        amenity_id = Column(
+        ),
+        Column(
+            "amenity_id",
             String(60),
             ForeignKey("amenities.id"),
             primary_key=True,
@@ -100,7 +102,7 @@ class Place(BaseModel, Base):
     def amenities(self):
         """ Getter attribute"""
         list_amenity = []
-        for k, v models.storage.all(Amenity).items():
+        for k, v in models.storage.all(Amenity).items():
             if amenity_id in amenities.amenity_id:
                 list_amenity.append(v)
         return list_amenity
