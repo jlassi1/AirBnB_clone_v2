@@ -2,9 +2,10 @@
 """ Place Module for HBNB project """
 from models.base_model import BaseModel, Base
 from sqlalchemy import Column, String, ForeignKey, Integer, Float, Table
-from models.review import Review
+#from models.review import Review
 from sqlalchemy.orm import relationship
-from models.amenity import Amenity
+import os
+#from models.amenity import Amenity
 place_amenity = Table(
         "place_amenity",
         Base.metadata,
@@ -90,26 +91,29 @@ class Place(BaseModel, Base):
         backref="Place"
     )
 
-    @property
-    def reviews(self):
-        """ the : getter attribute reviews"""
-        list_reviews = []
-        for k, v in models.storage.all(Review).items():
-            if self.id == Review.place_id:
-                list_reviews.append(v)
-        return list_reviews
+    if os.getenv("HBNB_TYPE_STORAGE") != 'db':
+        from models.review import Review
+        from models.amenity import Amenity
+        @property
+        def reviews(self):
+            """ the : getter attribute reviews"""
+            list_reviews = []
+            for k, v in models.storage.all(Review).items():
+                if self.id == Review.place_id:
+                    list_reviews.append(v)
+            return list_reviews
 
-    @property
-    def amenities(self):
-        """ Getter attribute"""
-        list_amenity = []
-        for k, v in models.storage.all(Amenity).items():
-            if amenity_id in self.amenity_ids:
-                list_amenity.append(v)
-        return list_amenity
+        @property
+        def amenities(self):
+            """ Getter attribute"""
+            list_amenity = []
+            for k, v in models.storage.all(Amenity).items():
+                if amenity_id in self.amenity_ids:
+                    list_amenity.append(v)
+            return list_amenity
 
-    @amenities.setter
-    def amenities(self, obj=None):
-        """Setter attribute"""
-        if obj not in self.amenity_ids and isinstance(obj, Amenity):
-            self.amenities.append(obj.id)
+        @amenities.setter
+        def amenities(self, obj=None):
+            """Setter attribute"""
+            if obj not in self.amenity_ids and isinstance(obj, Amenity):
+                self.amenities.append(obj.id)
