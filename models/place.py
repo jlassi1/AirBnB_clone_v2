@@ -5,7 +5,7 @@ from sqlalchemy import Column, String, ForeignKey, Integer, Float, Table
 from models.review import Review
 from sqlalchemy.orm import relationship
 from models.amenity import Amenity
-place_amenity = Table
+place_amenity = Table(
     "place_amenity",
     Base.metadata,
     Column(
