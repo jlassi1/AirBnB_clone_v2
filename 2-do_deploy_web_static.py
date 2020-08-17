@@ -15,14 +15,14 @@ def do_deploy(archive_path):
     try:
         put(filename, '/tmp/')
         pathfile = '/data/web_static/releases/' + filename.split('.')[0]
-        run("sudo mkdir -p /data/web_static/releases/{}"
-            .format(filename.split('.')[0]))
-        run("sudo tar -xzf /tmp/{} -C /data/web_static/releases/{}"
-            .format(filename))
+        foldername = "/data/web_static/releases/" + filename.split('.')[0]
+        run("sudo mkdir -p {}/".format(foldername))
+        run("sudo tar -xzf /tmp/{} -C {}/".format(filename, foldername))
         run("sudo rm  /tmp/{}".format(filename))
-        run("sudo rm -rf /data/web_static/current/*")
-        run("sudo ln -s /data/web_static/current/\
-            /data/web_static/releases/{}".format(filename.split('.')[0]))
+        run("sudo rm -rf {}/web_static".format(foldername))
+        run("sudo rm -rf /data/web_static/current")
+        run("sudo ln -s {}\
+            /data/web_static/current/".format(foldername))
         return True
 
     except Exception:
