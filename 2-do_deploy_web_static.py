@@ -11,9 +11,9 @@ def do_deploy(archive_path):
     if archive_path is None:
         return False
 
-    filename = archive_path.split('/')[-1]
     try:
-        put(filename, '/tmp/')
+        filename = archive_path.split('/')[-1]
+        put(archive_path, '/tmp/')
         pathfile = '/data/web_static/releases/' + filename.split('.')[0]
         foldername = "/data/web_static/releases/" + filename.split('.')[0]
         run("sudo mkdir -p {}/".format(foldername))
