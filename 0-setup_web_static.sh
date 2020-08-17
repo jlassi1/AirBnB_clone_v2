@@ -8,7 +8,7 @@ sudo mkdir -p /data/web_static/releases/
 sudo mkdir -p /data/web_static/shared/
 sudo mkdir -p /data/web_static/releases/test/
 sudo touch /data/web_static/releases/test/index.html
-sudo echo "
+echo "
 <html>
   <head>
   </head>
@@ -18,7 +18,7 @@ sudo echo "
 </html>" > /data/web_static/releases/test/index.html
 sudo ln -sf  /data/web_static/releases/test/ /data/web_static/current
 sudo chown -R ubuntu:ubuntu /data/
-sudo printf %s"
+printf %s "
 server {
     listen 80;
     listen [::]:80 default_server;
