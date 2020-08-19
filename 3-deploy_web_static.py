@@ -17,6 +17,7 @@ def do_pack():
     else:
         return None
 
+
 def do_deploy(archive_path):
     """ Fabric script that distributes an archive to your web servers"""
     if not exists(archive_path):
@@ -41,10 +42,12 @@ def do_deploy(archive_path):
         return False
     return True
 
+
 def deploy():
-    """Fabric script that creates and distributes an archive to your web servers"""
+    """Fabric script that creates and distributes
+    an archive to your web servers"""
     archive_path = do_pack()
-    if archive_path == None:
+    if archive_path is None:
         return False
     else:
         re = do_deploy(archive_path)
