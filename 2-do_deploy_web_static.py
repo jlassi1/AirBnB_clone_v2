@@ -20,12 +20,13 @@ def do_deploy(archive_path):
         run("sudo mkdir -p {}/".format(foldername))
         run("sudo tar -xzf /tmp/{} -C {}/".format(filename, foldername))
         run("sudo rm  /tmp/{}".format(filename))
-        run('mv {}/web_static/* {}'.format(foldername, foldername))
+        run('sudo mv {}/web_static/* {}/'.format(foldername, foldername))
         run("sudo rm -rf {}/web_static".format(foldername))
         run("sudo rm -rf /data/web_static/current")
-        run("sudo ln -s {}\
-            /data/web_static/current/".format(foldername))
+        run("sudo ln -s {}/\
+            /data/web_static/current".format(foldername))
         return True
 
     except Exception:
         return False
+    return True
