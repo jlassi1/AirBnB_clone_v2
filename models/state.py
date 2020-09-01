@@ -3,6 +3,8 @@
 from models.base_model import BaseModel, Base
 from sqlalchemy import Column, String, ForeignKey
 from sqlalchemy.orm import relationship
+import models
+from models.city import City
 import os
 
 
@@ -21,14 +23,11 @@ class State(BaseModel, Base):
     )
     # TODO should return all cities in file storage with self.id
     if os.getenv("HBNB_TYPE_STORAGE") != 'db':
-        from models import storage
-        from models.city import City
-
         @property
         def cities(self):
             """Cities getter"""
             ret = []
-            for key, value in self.all(City).items():
+            for key, value in models.storage.all(City).items():
                 if value.state_id == self.id:
                     ret.append(value)
             return ret

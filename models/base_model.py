@@ -37,14 +37,17 @@ class BaseModel:
         # // storage.new(self)
         if kwargs:
             # TODO create instance attribute from kwargs
-            kwargs['updated_at'] = datetime.strptime(kwargs['updated_at'],
-                                                     '%Y-%m-%dT%H:%M:%S.%f')
-            kwargs['created_at'] = datetime.strptime(kwargs['created_at'],
-                                                     '%Y-%m-%dT%H:%M:%S.%f')
-
-            del kwargs['__class__']
             for key, value in kwargs.items():
-                setattr(self, key, value)
+                if key == 'updated_at':
+                    kwargs['updated_at'] = datetime.strptime(
+                        kwargs['updated_at'], '%Y-%m-%dT%H:%M:%S.%f')
+                elif key == 'created_at':
+                    kwargs['created_at'] = datetime.strptime(
+                        kwargs['created_at'], '%Y-%m-%dT%H:%M:%S.%f')
+                elif key != '__class__':
+                    setattr(self, key, value)
+
+            #del kwargs['__class__']
             # ! change it with the above statement
             # // self.__dict__.update(kwargs)
 

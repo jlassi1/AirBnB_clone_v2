@@ -16,7 +16,7 @@ class City(BaseModel, Base):
     state_id = Column(
        String(60),
        ForeignKey("states.id"),
-       nullable=False,
+       nullable=False
     )
     # TODO add backreference to places
     places = relationship(
