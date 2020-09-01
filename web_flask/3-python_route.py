@@ -23,9 +23,8 @@ def hbnb():
 def c_is_fun(text):
     """funtion that display “C ” followed by
     the value of the text variable after /c/<text>"""
-    if "_" in text:
-        text = text.replace("_", " ")
-    return "c %s" % text
+    text = text.replace("_", " ")
+    return "C %s" % text
 
 
 @app.route("/python", strict_slashes=False)
