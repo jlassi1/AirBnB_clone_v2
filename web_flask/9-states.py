@@ -21,11 +21,10 @@ def states_cities(id=None):
                 find='states')
     for s in states:
         if s.id == id:
-            stt = s
             cities = storage.all(City).values()
             return render_template(
                 "9-states.html",
-                states=stt,
+                states=s,
                 find='State',
                 cities=cities)
     return render_template(
